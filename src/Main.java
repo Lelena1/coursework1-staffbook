@@ -80,7 +80,7 @@ public class Main {
         for (Employee employee : employees) {
             sum += employee.getSalary();
         }
-        double averageSalary = (sum / (employees.length));
+        double averageSalary = sum / (employees.length);
         System.out.println("Среднее значение зарплат равно: " + averageSalary + " рублей.");
     }
 
