@@ -38,7 +38,7 @@ public class Main {
         employees[6] = new Employee(fullName7, "3", 34500.70);
         employees[7] = new Employee(fullName8, "2", 43300);
         employees[8] = new Employee(fullName9, "1", 33000);
-        employees[9] = new Employee(fullName9, "1", 24500.90);
+        employees[9] = new Employee(fullName10, "1", 24500.90);
 
 
         System.out.println("Список всех сотрудников со всеми данными:\n");
@@ -168,6 +168,7 @@ public class Main {
             if (employees[i] != null) {
 
                 indexSalary = employees[i].getSalary() + employees[i].getSalary() * percent / 100;
+                employees[i].setSalary(indexSalary);
                 System.out.println(employees[i].getId() + ". " + employees[i].getFullName() + ": " +
                         indexSalary + " рублей.");
             }
@@ -202,7 +203,7 @@ public class Main {
     }
 
     public static void findEmployeesWithSalaryLessThanANumber(double salaryAmount, Employee[] employees) {
-        int counter = 0;
+
         for (int i = 0; i < employees.length; i++) {
             if (employees[i] != null && employees[i].getSalary() < salaryAmount) {
                 System.out.println("id: " + employees[i].getId() + ". Ф.И.О.: " + employees[i].getFullName() + ", " +
