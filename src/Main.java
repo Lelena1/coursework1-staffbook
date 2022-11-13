@@ -20,6 +20,7 @@ public class Main {
         FullName fullName9 = new FullName("Устинова", "Людмила", "Николаевна");
         FullName fullName10 = new FullName("Яковец", "Мария", "Николаевна");
 
+
         System.out.println("Список Ф.И.О. всех сотрудников:\n\n" + fullName1 + "\n" + fullName2 + "\n" + fullName3 + "\n"
                 + fullName4 + "\n" + fullName5 + "\n" + fullName6 + "\n" + fullName7 + "\n"
                 + fullName8 + "\n" + fullName9 + "\n" + fullName10);
@@ -38,6 +39,7 @@ public class Main {
         employees[7] = new Employee(fullName8, "2", 43300);
         employees[8] = new Employee(fullName9, "1", 33000);
         employees[9] = new Employee(fullName10, "1", 24500.90);
+
 
         System.out.println("Список всех сотрудников со всеми данными:\n");
         System.out.println(Arrays.toString(employees));
@@ -59,6 +61,48 @@ public class Main {
         findEmployeeWithMaxSalary(employees);
 
         printSeparator();
+
+        System.out.println("Повышенная сложность");
+
+        printSeparator();
+
+        printSeparator();
+
+
+//  Повышенный уровень сложности
+        System.out.println("Проиндексированная зарплата сотрудников:");
+        doIndexSalary(10, employees);
+        printSeparator();
+        String nameOfDepartment = "1";
+        Employee[] employeeDepartmentArray = findEmployeeDepartment(nameOfDepartment, employees);
+        System.out.println("Минимальная зарплата по отделу " + nameOfDepartment + ":");
+        findEmployeeWithMinSalary(employeeDepartmentArray);
+        printSeparator();
+        System.out.println("Максимальная зарплата по отделу " + nameOfDepartment + ":");
+        findEmployeeWithMaxSalary(employeeDepartmentArray);
+        printSeparator();
+        System.out.println("Сумма затрат на зарплату по отделу " + nameOfDepartment + ":");
+        calculateSumOfMonthlySalary(employeeDepartmentArray);
+        printSeparator();
+        System.out.println("Средняя зарплата по отделу " + nameOfDepartment + ":");
+        сalculateAverageSalary(employeeDepartmentArray);
+        printSeparator();
+        System.out.println("Проиндексированная зарплата сотрудников отдела " + nameOfDepartment + ":");
+        doIndexSalary(10, employeeDepartmentArray);
+        printSeparator();
+        System.out.println("Данные по всем сотрудникам отдела " + nameOfDepartment + ":");
+        printAllDataOfDepartment(employeeDepartmentArray);
+        printSeparator();
+        double salaryAmount = 30000.50;
+        System.out.println("Данные по всем сотрудникам, имеющим зарплату, меньшую, чем " + salaryAmount + ":");
+        findEmployeesWithSalaryLessThanANumber(salaryAmount, employees);
+        printSeparator();
+        double salaryAmount2 = 32000.10;
+        System.out.println("Данные по всем сотрудникам, имеющим зарплату, большую или равную " + salaryAmount2 + ":");
+        findEmployeesWithSalaryMoreThanANumber(salaryAmount2, employees);
+        System.out.println();
+        printSeparator();
+
     }
 
     public static void printSeparator() {
@@ -80,6 +124,7 @@ public class Main {
         for (Employee employee : employees) {
             sum += employee.getSalary();
         }
+
         double averageSalary = sum / (employees.length);
         System.out.println("Среднее значение зарплат равно: " + averageSalary + " рублей.");
     }
@@ -110,5 +155,70 @@ public class Main {
         }
         System.out.println("Сотрудник " + employeeWithMaxSalary +
                 " имеет максимальную зарплату в размере " + max + " рублей.");
+
+    }
+
+// Повышенная сложность
+
+    public static void doIndexSalary(double percent, Employee[] employees) {
+
+        double indexSalary = 0;
+
+        for (int i = 0; i < employees.length; i++) {
+            if (employees[i] != null) {
+
+                indexSalary = employees[i].getSalary() + employees[i].getSalary() * percent / 100;
+                employees[i].setSalary(indexSalary);
+                System.out.println(employees[i].getId() + ". " + employees[i].getFullName() + ": " +
+                        indexSalary + " рублей.");
+            }
+        }
+    }
+
+    public static Employee[] findEmployeeDepartment(String department, Employee[] employees) {
+        int counter = 0;
+
+        for (int i = 0; i < employees.length; i++) {
+            if (employees[i] != null && employees[i].getDepartment().equals(department)) {
+                counter++;
+            }
+        }
+        Employee[] employeeDepartment = new Employee[counter];
+        int index = 0;
+        for (int i = 0; i < employees.length; i++) {
+            if (employees[i] != null && employees[i].getDepartment().equals(department)) {
+
+                employeeDepartment[index] = employees[i];
+                index++;
+            }
+        }
+        return employeeDepartment;
+    }
+
+    public static void printAllDataOfDepartment(Employee[] employees) {
+        for (Employee employee : employees) {
+            System.out.println("id: " + employee.getId() + ", " + "Ф.И.О.: " + employee.getFullName() + ", зарплата: " +
+                    employee.getSalary() + " рублей.");
+        }
+    }
+
+    public static void findEmployeesWithSalaryLessThanANumber(double salaryAmount, Employee[] employees) {
+
+        for (int i = 0; i < employees.length; i++) {
+            if (employees[i] != null && employees[i].getSalary() < salaryAmount) {
+                System.out.println("id: " + employees[i].getId() + ". Ф.И.О.: " + employees[i].getFullName() + ", " +
+                        "зарплата: " + employees[i].getSalary() + " рублей.");
+            }
+        }
+    }
+
+    public static void findEmployeesWithSalaryMoreThanANumber(double salaryAmount2, Employee[] employees) {
+
+        for (int i = 0; i < employees.length; i++) {
+            if (employees[i] != null && employees[i].getSalary() >= salaryAmount2) {
+                System.out.println("id: " + employees[i].getId() + ". Ф.И.О.: " + employees[i].getFullName() + ", " +
+                        "зарплата: " + employees[i].getSalary() + " рублей.");
+            }
+        }
     }
 }
